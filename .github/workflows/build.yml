@@ -49,6 +49,8 @@ jobs:
           amxxpc="$scripting_dir/amxxpc"
           amxxpc=$(cd $(dirname $amxxpc); pwd)/$(basename $amxxpc);
 
+          find .
+          
           cd $scripting_dir
 
           find * -name "*.sma" \
