@@ -42,15 +42,13 @@ jobs:
 
           OUTPUT_DIR="_output"
           mkdir $OUTPUT_DIR
-          ls -l
+          find .
           cp -Rf ./cstrike/addons/amxmodx/* ./_output/
           cd $OUTPUT_DIR
 
           scripting_dir="$OUTPUT_DIR/scripting/"
           amxxpc="$scripting_dir/amxxpc"
           amxxpc=$(cd $(dirname $amxxpc); pwd)/$(basename $amxxpc);
-
-          find .
 
           cd $scripting_dir
 
