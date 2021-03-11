@@ -27,6 +27,7 @@ jobs:
           curl -OL https://github.com/s1lentq/reapi/releases/download/$REAPI/reapi_$REAPI-dev.zip -#
           unzip reapi_*-dev.zip && rm reapi_*-dev.zip
           cd addons/amxmodx && rm scripting/*.sma && rm plugins/*.amxx
+          cd scripting && chmod +x amxxpc32.so && chmod +x compile.sh && chmod +x amxxpc
 
       - name: Declare SHA & branch
         id: vars
@@ -39,14 +40,24 @@ jobs:
         run: |
           SHA=${{ steps.vars.outputs.sha_short }}
 
-          cp -Rf ./cstrike/addons/amxmodx/* ./addons/amxmodx/
-          cd addons/amxmodx/scripting
+          OUTPUT_DIR="_output"
+          mkdir $OUTPUT_DIR
+          cp -Rf ./cstrike/addons/amxmodx/* ./_output/
+          cd $OUTPUT_DIR
 
-          chmod +x amxxpc32.so && chmod +x compile.sh && chmod +x amxxpc
-          for sourcefile in *.sma; do\
-            echo -n "Compiling $sourcefile ...";\
-            ./amxxpc -d3 $sourcefile CA_VERSION=$SHA -o../plugins/$(echo $sourcefile | sed -e 's/\.sma$/.amxx/') || exit 1;\
-          done
+          scripting_dir="$OUTPUT_DIR/scripting/"
+          amxxpc="$scripting_dir/amxxpc"
+          amxxpc=$(cd $(dirname $amxxpc); pwd)/$(basename $amxxpc);
+
+          cd $scripting_dir
+
+          find * -name "*.sma" \
+            -exec echo -e "\n\n> Compile {} <" \;\
+            -exec ${amxxpc} {} \
+              CA_VERSION=$SHA \
+              -iinclude \
+              -o../plugins/{} \
+            \;
 
       - name: Archieve
         run: |
