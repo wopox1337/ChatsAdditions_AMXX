@@ -42,6 +42,7 @@ jobs:
 
           OUTPUT_DIR="_output"
           mkdir $OUTPUT_DIR
+          ls -l
           cp -Rf ./cstrike/addons/amxmodx/* ./_output/
           cd $OUTPUT_DIR
 
@@ -50,7 +51,7 @@ jobs:
           amxxpc=$(cd $(dirname $amxxpc); pwd)/$(basename $amxxpc);
 
           find .
-          
+
           cd $scripting_dir
 
           find * -name "*.sma" \
