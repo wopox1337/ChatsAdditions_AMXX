@@ -38,10 +38,10 @@ jobs:
       - name: Compile plugins AMXX Version
         run: |
           SHA=${{ steps.vars.outputs.sha_short }}
-          echo "Commit SHA=$SHA"
 
           cp -Rf ./cstrike/addons/amxmodx/* ./addons/amxmodx/
           cd addons/amxmodx/scripting
+
           chmod +x amxxpc32.so && chmod +x compile.sh && chmod +x amxxpc
           for sourcefile in *.sma; do\
             echo -n "Compiling $sourcefile ...";\
@@ -56,4 +56,4 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: ChatAdditions-${{ steps.vars.outputs.sha_short }}.tar.gz
-          path: ${{github.workspace}}/ChatAdditions-${{ steps.vars.outputs.sha_short }}.tar.gz
+          path: ${{github.workspace}}/addons/
