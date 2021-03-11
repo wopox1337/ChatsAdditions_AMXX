@@ -13,30 +13,47 @@ jobs:
   build:
     name: Build plugins
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        amxmodx: ["1.9"]
 
-      fail-fast: false
     steps:
       - name: Checkout repo
         uses: actions/checkout@v1
 
       - name: Download AMXX && ReAPI and unpacking
         env:
-          AMXMODX: ${{ matrix.amxmodx }}
+          AMXMODX: "1.9"
+          REAPI: "5.19.0.211"
         run: |
           curl -s https://www.amxmodx.org/amxxdrop/$AMXMODX/$(curl https://www.amxmodx.org/amxxdrop/$AMXMODX/amxmodx-latest-base-linux) -# | tar xz
-          curl -OL https://github.com/s1lentq/reapi/releases/download/5.19.0.211/reapi_5.19.0.211-dev.zip -#
+          curl -OL https://github.com/s1lentq/reapi/releases/download/$REAPI/reapi_$REAPI-dev.zip -#
           unzip reapi_*-dev.zip && rm reapi_*-dev.zip
           cd addons/amxmodx && rm scripting/*.sma && rm plugins/*.amxx
 
+      - name: Declare SHA & branch
+        id: vars
+        shell: bash
+        run: |
+          echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
+          echo "::set-output name=sha_short::$(git rev-parse --short HEAD)"
+
       - name: Compile plugins AMXX Version
         run: |
+          SHA=${{ steps.vars.outputs.sha_short }}
+          echo "Commit SHA=$SHA"
+
           cp -Rf ./cstrike/addons/amxmodx/* ./addons/amxmodx/
           cd addons/amxmodx/scripting
           chmod +x amxxpc32.so && chmod +x compile.sh && chmod +x amxxpc
           for sourcefile in *.sma; do\
             echo -n "Compiling $sourcefile ...";\
-            ./amxxpc -d3 $sourcefile -o../plugins/$(echo $sourcefile | sed -e 's/\.sma$/.amxx/') || exit 1;\
+            ./amxxpc -d3 $sourcefile CA_VERSION=$SHA -o../plugins/$(echo $sourcefile | sed -e 's/\.sma$/.amxx/') || exit 1;\
           done
+
+      - name: Archieve
+        run: |
+          tar -czpf ChatAdditions-${{ steps.vars.outputs.sha_short }}.tar.gz addons/*
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: ChatAdditions-${{ steps.vars.outputs.sha_short }}.tar.gz
+          path: ${{github.workspace}}/ChatAdditions-${{ steps.vars.outputs.sha_short }}.tar.gz
