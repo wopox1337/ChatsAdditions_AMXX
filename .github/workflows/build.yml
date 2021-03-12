@@ -28,8 +28,8 @@ jobs:
           unzip reapi_*-dev.zip && rm reapi_*-dev.zip
           cd addons/amxmodx && rm scripting/*.sma && rm plugins/*.amxx
           cd scripting && chmod +x amxxpc32.so && chmod +x compile.sh && chmod +x amxxpc
-          cd ../..
-          mkdir _compiler && cp -Rf addons/scripting/* _compiler
+          cd ../../../
+          mkdir _compiler && cp -Rf addons/amxmodx/scripting/* _compiler
 
       - name: Declare SHA & branch
         id: vars
