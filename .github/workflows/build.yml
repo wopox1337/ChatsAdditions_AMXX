@@ -48,8 +48,13 @@ jobs:
 
           scripting_dir="$OUTPUT_DIR/scripting"
           amxxpc="$scripting_dir/amxxpc"
-          amxxpc=$(cd $(dirname $amxxpc); pwd)/$(basename $amxxpc);
 
+          # Get full path for compiler file (not relative path)
+          function realpath {
+            echo $(cd $(dirname $1); pwd)/$(basename $1);
+          }
+          amxxpc=$(realpath ${amxxpc})
+ 
           ls
 
           cd $scripting_dir
