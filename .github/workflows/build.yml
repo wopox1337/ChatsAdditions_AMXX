@@ -45,12 +45,13 @@ jobs:
           find .
           cp -Rf ./cstrike/addons/amxmodx/* $OUTPUT_DIR
           cd $OUTPUT_DIR
-          
-          ls
 
           scripting_dir="$OUTPUT_DIR/scripting/"
           amxxpc="$scripting_dir/amxxpc"
           amxxpc=$(cd $(dirname $amxxpc); pwd)/$(basename $amxxpc);
+
+
+          ls
 
           cd $scripting_dir
 
