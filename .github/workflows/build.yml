@@ -42,16 +42,17 @@ jobs:
         run: |
           SHA=${{ steps.vars.outputs.sha_short }}
 
-          OUTPUT_DIR="_output"
-          mkdir $OUTPUT_DIR
-          cp -Rf ./cstrike/addons/amxmodx/* $OUTPUT_DIR
-          cd $OUTPUT_DIR
-
           amxxpc="_compiler/amxxpc"
           amxxpc=$(cd $(dirname $amxxpc); pwd)/$(basename $amxxpc);
 
           ls
 
+          OUTPUT_DIR="_output"
+          mkdir $OUTPUT_DIR
+          cp -Rf ./cstrike/addons/amxmodx/* $OUTPUT_DIR
+          cd $OUTPUT_DIR
+
+          cd ..
           cd _compiler
 
           find * -name "*.sma" \
