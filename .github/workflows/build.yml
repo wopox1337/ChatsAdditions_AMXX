@@ -28,6 +28,7 @@ jobs:
           unzip reapi_*-dev.zip && rm reapi_*-dev.zip
           cd addons/amxmodx && rm scripting/*.sma && rm plugins/*.amxx
           cd scripting && chmod +x amxxpc32.so && chmod +x compile.sh && chmod +x amxxpc
+          mkdir _compiler && cp -Rf * _compiler
 
       - name: Declare SHA & branch
         id: vars
@@ -42,22 +43,16 @@ jobs:
 
           OUTPUT_DIR="_output"
           mkdir $OUTPUT_DIR
-
+          find .
           cp -Rf ./cstrike/addons/amxmodx/* $OUTPUT_DIR
           cd $OUTPUT_DIR
 
-          scripting_dir="$OUTPUT_DIR/scripting"
-          amxxpc="$scripting_dir/amxxpc"
+          amxxpc="_compiler/amxxpc"
+          amxxpc=$(cd $(dirname $amxxpc); pwd)/$(basename $amxxpc);
 
-          # Get full path for compiler file (not relative path)
-          function realpath {
-            echo $(cd $(dirname $1); pwd)/$(basename $1);
-          }
-          amxxpc=$(realpath ${amxxpc})
- 
           ls
 
-          cd $scripting_dir
+          cd _compiler
 
           find * -name "*.sma" \
             -exec echo -e "\n\n> Compile {} <" \;\
