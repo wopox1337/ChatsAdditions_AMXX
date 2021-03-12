@@ -54,7 +54,7 @@ jobs:
 
           find .
 
-          cd $OUTPUT_DIR
+          cd $OUTPUT_DIR/scripting/
 
           find * -name "*.sma" \
             -exec echo -e "\n\n> Compile {} (${amxxpc}) <" \;\
