@@ -50,12 +50,10 @@ jobs:
           OUTPUT_DIR="_output"
           mkdir $OUTPUT_DIR
           cp -Rf ./cstrike/addons/amxmodx/* $OUTPUT_DIR
+
           cd $OUTPUT_DIR
 
-          cd ..
-          cd _compiler
-
-          find * -name "*.sma" \
+          find * -name "*.sma" 
             -exec echo -e "\n\n> Compile {} <" \;\
             -exec ${amxxpc} {} \
               CA_VERSION=$SHA \
