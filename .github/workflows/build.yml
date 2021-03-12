@@ -42,7 +42,7 @@ jobs:
 
           OUTPUT_DIR="_output"
           mkdir $OUTPUT_DIR
-          find .
+
           cp -Rf ./cstrike/addons/amxmodx/* $OUTPUT_DIR
           cd $OUTPUT_DIR
 
