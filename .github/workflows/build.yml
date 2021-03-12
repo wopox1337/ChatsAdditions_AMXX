@@ -57,7 +57,7 @@ jobs:
           cd $OUTPUT_DIR
 
           find * -name "*.sma" \
-            -exec echo -e "\n\n> Compile {} <" \;\
+            -exec echo -e "\n\n> Compile {} (${amxxpc}) <" \;\
             -exec ${amxxpc} {} \
               CA_VERSION=$SHA \
               -iinclude \
