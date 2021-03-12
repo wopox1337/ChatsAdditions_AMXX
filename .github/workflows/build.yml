@@ -49,11 +49,11 @@ jobs:
           ls
 
           OUTPUT_DIR="_output"
-          mkdir $OUTPUT_DIR
+          mkdir $OUTPUT_DIR/plugins
           cp -Rf ./cstrike/addons/amxmodx/* $OUTPUT_DIR
 
           find .
-
+          
           cd $OUTPUT_DIR/scripting/
           chmod +x amxxpc32.so && chmod +x compile.sh && chmod +x amxxpc
 
