@@ -51,6 +51,8 @@ jobs:
           mkdir $OUTPUT_DIR
           cp -Rf ./cstrike/addons/amxmodx/* $OUTPUT_DIR
 
+          find .
+          
           cd $OUTPUT_DIR
 
           find * -name "*.sma" \
