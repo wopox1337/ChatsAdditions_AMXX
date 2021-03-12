@@ -53,13 +53,13 @@ jobs:
 
           cd $OUTPUT_DIR
 
-          find * -name "*.sma" 
-            -exec echo -e "\n\n> Compile {} <" \;\
-            -exec ${amxxpc} {} \
-              CA_VERSION=$SHA \
-              -iinclude \
-              -o../plugins/{} \
-            \;
+          find * -name "*.sma"
+          -exec echo -e "\n\n> Compile {} <" \; \
+          -exec ${amxxpc} {} \
+          CA_VERSION=$SHA \
+          -iinclude \
+          -o../plugins/{} \
+          \;
 
       - name: Archieve
         run: |
