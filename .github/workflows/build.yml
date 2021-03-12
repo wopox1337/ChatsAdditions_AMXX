@@ -67,7 +67,7 @@ jobs:
 
       - name: Archieve
         run: |
-          tar -czpf ChatAdditions-${{ steps.vars.outputs.sha_short }}.tar.gz addons/*
+          tar -czpf ChatAdditions-${{ steps.vars.outputs.sha_short }}.tar.gz _output/*
 
       - name: Upload artifact
         uses: actions/upload-artifact@v2
