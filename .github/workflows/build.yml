@@ -55,6 +55,7 @@ jobs:
           find .
 
           cd $OUTPUT_DIR/scripting/
+          chmod +x amxxpc32.so && chmod +x compile.sh && chmod +x amxxpc
 
           find * -name "*.sma" \
             -exec echo -e "\n\n> Compile {} (${amxxpc}) <" \;\
