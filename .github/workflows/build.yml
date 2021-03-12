@@ -30,6 +30,7 @@ jobs:
           cd scripting && chmod +x amxxpc32.so && chmod +x compile.sh && chmod +x amxxpc
           cd ../../../
           mkdir _compiler && cp -Rf addons/amxmodx/scripting/* _compiler
+          rm -rf addons
 
       - name: Declare SHA & branch
         id: vars
@@ -52,7 +53,7 @@ jobs:
           cp -Rf ./cstrike/addons/amxmodx/* $OUTPUT_DIR
 
           find .
-          
+
           cd $OUTPUT_DIR
 
           find * -name "*.sma" \
